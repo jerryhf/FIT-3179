@@ -3,6 +3,7 @@
   "title": "Electricity production from renewable sources (% of total)",
   "width": 1000,
   "height": 600,
+  "background":"white",
   "data": {
     "url": "https://raw.githubusercontent.com/jerryhf/FIT-3179/main/FIT3179-week9-homework/renewable_long_format.csv"
   },
@@ -23,6 +24,20 @@
     "type": "equirectangular"
   },
   "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/jerryhf/FIT-3179/main/FIT3179-week9-homework/ne_110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "ne_110m_graticules_30"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "stroke": "lightgray",
+        "strokeWidth": 1
+      }
+    },    
     {
       "data": {
         "url": "https://raw.githubusercontent.com/jerryhf/FIT-3179/main/FIT3179-week9-homework/ne_110m.json",

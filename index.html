@@ -36,7 +36,7 @@
   let selectedCountry = "";
   let choroplethView;
   let selectedYear = 2015;
-  d3.csv("./assignment02/renewable_long_format.csv").then(data => {
+  d3.csv("https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/renewable_long_format.csv").then(data => {
     uniqueCountries = [...new Set(data.map(item => item["Country Code"]))];
 
     fetch("./assignment02/visualization.json")

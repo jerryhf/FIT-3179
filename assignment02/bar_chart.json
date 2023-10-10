@@ -4,7 +4,7 @@
     "width": 500,
     "height": 300,
     "data": {
-      "url": "cleaned_energy_sources.csv"
+      "url": "https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/cleaned_energy_sources.csv"
     },
     "transform": [
       {

@@ -1,13 +1,17 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Electricity production from renewable sources (% of total)",
+  "title": "Electricity production from renewable sources (% of total, excluding hydroelectric)",
   "width": 1000,
   "height": 600,
-  "background":"white",
   "data": {
-    "url": "https://raw.githubusercontent.com/jerryhf/FIT-3179/main/FIT3179-week9-homework/renewable_long_format.csv"
+    "url": "renewable_long_format.csv"
   },
-  "params": [
+  "params": [    
+    {
+      "name": "selectedCountry",
+      "value": "",
+      "bind": {"input": "hidden"}
+    },
     {
       "name": "Year",
       "value": 2015,
@@ -26,21 +30,7 @@
   "layer": [
     {
       "data": {
-        "url": "https://raw.githubusercontent.com/jerryhf/FIT-3179/main/FIT3179-week9-homework/ne_110m.json",
-        "format": {
-          "type": "topojson",
-          "feature": "ne_110m_graticules_30"
-        }
-      },
-      "mark": {
-        "type": "geoshape",
-        "stroke": "lightgray",
-        "strokeWidth": 1
-      }
-    },    
-    {
-      "data": {
-        "url": "https://raw.githubusercontent.com/jerryhf/FIT-3179/main/FIT3179-week9-homework/ne_110m.json",
+        "url": "ne_110m.json",
         "format": {
           "type": "topojson",
           "feature": "ne_110m_admin_0_countries"
@@ -52,14 +42,27 @@
         "strokeWidth": 1
       },
       "encoding": {
-        "color": {
+        "color":{
+          "condition":{
+            "test": "datum.properties['Country Code'] === selectedCountry",
+            "value": "red"
+          },
           "value": "lightgray"
-        },
-        "tooltip": {
-          "field": "properties.NAME",
-          "type": "nominal",
-          "title": "Country"
         }
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/jerryhf/FIT-3179/main/FIT3179-week9-homework/ne_110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "ne_110m_graticules_30"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "stroke": "lightgray",
+        "strokeWidth": 1
       }
     },
     {
@@ -68,7 +71,7 @@
           "lookup": "Country Code",
           "from": {
             "data": {
-              "url": "https://raw.githubusercontent.com/jerryhf/FIT-3179/main/FIT3179-week9-homework/ne_110m(1).json",
+              "url": "ne_110m(1).json",
               "format": {
                 "type": "topojson",
                 "feature": "ne_110m_admin_0_countries"
@@ -99,11 +102,25 @@
         "color": {
           "field": "Electricity production from renewable sources (% of total)",
           "type": "quantitative",
-          "title": "Renewable Electricity (%)",
+          "title": "Renewable Electricity (%) excl. hydroelectric",
           "scale": {
             "range": ["#003366", "#005577", "#007788", "#009999", "#33aa88", "#66cc77", "#99ee66"],
             "domain":[0,50]
           }
+        },
+        "stroke": {
+          "condition": {
+            "test": "datum['Country Code'] === selectedCountry",
+            "value": "red"
+          },
+          "value": "white"
+        },
+        "strokeWidth": {
+          "condition": {
+            "test": "datum['Country Code'] === selectedCountry",
+            "value": 3
+          },
+          "value": 1
         },
         "tooltip": [
           {
@@ -114,7 +131,7 @@
           {
             "field": "Electricity production from renewable sources (% of total)",
             "type": "quantitative",
-            "title": "Electricity production from renewable sources (% of total)"
+            "title": "Electricity production from renewable sources (% of total) excluding hydroelectric"
           },
           {
             "field": "Year",

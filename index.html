@@ -1,21 +1,121 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
-  
+  <link rel="stylesheet" type="text/css" href="styles.css">
 
 </head>
 <body>
   
-<div id="choropleth_map"></div>
+  <div id="chart-container">
+    <h1 class="content">Renewable Energy</h1>
+    
+    <h2 class="content">Global View of Renewable Energy</h2>
+    <p class="content">Global electricity production from renewable sources is a growing concern in the pursuit of sustainability. This map displays the percentage of electricity generated from renewable sources, specifically excluding hydroelectric energy. The reason for this exclusion is to focus on the overall contributions of renewable energy in a country's electricity generation without the often dominant influence of hydroelectric power.</p>
+    <div id="choropleth_map"></div>
+    
+    <h2 class="content">Country-Specific Trends</h2>
+    <p class="content">Going down from a global perspective, we can see country-specific trends in renewable energy production. Select a country to view its progress in renewable energy production. The year-over-year change can reveal important patterns, such as policy effectiveness or technological advances.</p>
+    <div id="line_chart"></div>
+    
+    <h2 class="content">Renewable Energy Consumption and Production</h2>
+    <p class="content">We can see how much of the country's total energy consumed comes from renewable sources alongside how much of its total electricity production is generated from renewables, excluding hydroelectric. This helps us get a complete picture of both the country's use of renewable energy and its shift away from traditional energy sources.</p>
+    <div id="stacked_area_chart"></div>
+    
+    <h2 class="content">The Broader Energy Picture</h2>
+    <p class="content">While renewables are crucial, they are part of a bigger energy picture. This bar chart offers a broader view by displaying a country's total electricity production from all sources, renewable and non-renewable.</p>
+    <div id="bar_chart"></div>
+    
+  </div>
 
 <script type="text/javascript">
+  let uniqueCountries;
+  let selectedCountry = "";
+  let choroplethView;
+  let selectedYear = 2015;
+  d3.csv("renewable_long_format.csv").then(data => {
+    uniqueCountries = [...new Set(data.map(item => item["Country Code"]))];
 
-  var spec = "./FIT3179-week9-homework/visualization.json";
-  vegaEmbed('#choropleth_map', spec).then(function(result) {
-  }).catch(console.error);
+    fetch("./visualization.json")
+    .then(response=>response.json())
+    .then(spec=>{
+      vegaEmbed('#choropleth_map', spec)
+      .then((result)=>{
+        choroplethView = result.view;
+        result.view.addEventListener('click', function(event,item){
+          if(item && item.datum){
+            selectedCountry = item.datum['Country Code'];
+            updateLineChart();
+            updateChoroplethMap(selectedCountry);
+            updateAreaChart();
+            updateBarChart();
+          }
+        });
+      })
+      .catch(console.error);
+    })
+  })
+  .then(() => { 
+      fetch("./line_chart.json")
+      .then(response => response.json()) 
+      .then(line_chart => {
+        vegaEmbed("#line_chart", line_chart).catch(console.error);
+      });
+    })
+    .then(() =>{
+      fetch("./stacked_area_chart.json") 
+      .then(response => response.json())
+      .then(stacked_area_chart => {
+      vegaEmbed("#stacked_area_chart", stacked_area_chart).catch(console.error);
+    });
+    })
+    .then(() =>{
+      fetch("./bar_chart.json")
+      .then(response => response.json())
+      .then(bar_chart => {
+        vegaEmbed("#bar_chart", bar_chart).catch(console.error)
+      })
+    })
+
+    function updateChoroplethMap(selectedCountry){
+    if (choroplethView) {
+      choroplethView.signal('selectedCountry', selectedCountry);
+      choroplethView.runAsync();
+    }
+  }
+
+    function updateLineChart(){
+      fetch("./line_chart.json")
+      .then(response => response.json())
+      .then(line_chart =>{
+        // line_chart.params[0].value = selectedCountry;
+        line_chart.transform[0].filter = `datum['Country Code'] === "${selectedCountry}"`;
+        vegaEmbed("#line_chart", line_chart).catch(console.error)
+      })
+    }
+
+    function updateAreaChart(){
+      fetch("./stacked_area_chart.json")
+      .then(response => response.json())
+      .then(stacked_area_chart =>{
+        stacked_area_chart.transform[0].filter = `datum['Country Code'] === "${selectedCountry}"`;
+        vegaEmbed("#stacked_area_chart", stacked_area_chart).catch(console.error)
+      })
+    }
+
+    function updateBarChart(){
+    fetch("./bar_chart.json")
+    .then(response => response.json())
+    .then(bar_chart =>{
+      bar_chart.transform[0].filter = `datum['Country Code'] === "${selectedCountry}"`;
+      vegaEmbed("#bar_chart", bar_chart).catch(console.error);
+        })
+      }
+
+
 </script>
 
 </body>

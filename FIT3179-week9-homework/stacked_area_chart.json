@@ -1,0 +1,38 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Renewable Energy Production vs Consumption",
+    "width": 500,
+    "height": 300,
+    "data": {
+      "url": "filtered_stacked_renewable_data.csv"
+    },
+    "transform": [
+      {
+        "filter": "datum['Country Code'] === ''"
+      }
+    ],
+    "layer": [
+      {
+        "mark": "area",
+        "encoding": {
+          "x": {"field": "Year", "type": "temporal", "axis": {"title": "Year"}},
+          "y": {"field": "Value", "type": "quantitative", "title": "Value"},
+          "color": {"field": "Type", "type": "nominal", "legend": {"title": "Type"}}
+        }
+      },
+      {
+        "mark": {"type": "area", "opacity": 0},
+        "encoding": {
+          "x": {"field": "Year", "type": "temporal"},
+          "y": {"field": "Value", "type": "quantitative"},
+          "color": {"field": "Type", "type": "nominal"},
+          "tooltip": [
+            {"field": "Country Name", "type": "nominal", "title": "Country"},
+            {"field": "Year", "type": "temporal", "title": "Year"},
+            {"field": "Value", "type": "quantitative", "title": "Value"}
+          ]
+        }
+      }
+    ]
+  }
+  

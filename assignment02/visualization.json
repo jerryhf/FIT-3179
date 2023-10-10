@@ -30,7 +30,7 @@
   "layer": [
     {
       "data": {
-        "url": "ne_110m.json",
+        "url": "https://raw.githubusercontent.com/jerryhf/FIT-3179/main/FIT3179-week9-homework/ne_110m(1).json",
         "format": {
           "type": "topojson",
           "feature": "ne_110m_admin_0_countries"
@@ -71,7 +71,7 @@
           "lookup": "Country Code",
           "from": {
             "data": {
-              "url": "ne_110m(1).json",
+              "url": "https://raw.githubusercontent.com/jerryhf/FIT-3179/main/FIT3179-week9-homework/ne_110m(1).json",
               "format": {
                 "type": "topojson",
                 "feature": "ne_110m_admin_0_countries"

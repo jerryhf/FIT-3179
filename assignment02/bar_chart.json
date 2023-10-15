@@ -12,12 +12,12 @@
     }
   ],
   "encoding": {
-    "x": {"field": "Year", "type": "ordinal", "title": "Year", "axis": {"values": [1973, 1975, 1977, 1979, 1981, 1983, 1985, 1987, 1989, 1991, 1993, 1995, 1997, 1999, 2001, 2003, 2005, 2007, 2009, 2011, 2013, 2015], "format": "d"}},
+    "x": {"field": "Year", "type": "quantitative", "title": "Year", "axis": {"values": [1973, 1975, 1977, 1979, 1981, 1983, 1985, 1987, 1989, 1991, 1993, 1995, 1997, 1999, 2001, 2003, 2005, 2007, 2009, 2011, 2013, 2015], "format": "d"}},
     "y": {"field": "Value", "type": "quantitative", "title": "Value", "stack": "normalize"},
     "color": {"field": "Series Name", "type": "nominal", "legend": {"title": "Energy Source"}},
     "tooltip": [
       {"field": "Country Name", "type": "nominal", "title": "Country"},
-      {"field": "Year", "type": "ordinal", "title": "Year"},
+      {"field": "Year", "type": "quantitative", "title": "Year"},
       {"field": "Value", "type": "quantitative", "title": "Value"},
       {"field": "Series Name", "type": "nominal", "title": "Energy Source"}
     ]

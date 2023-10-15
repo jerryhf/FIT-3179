@@ -8,7 +8,7 @@
   },
   "transform": [
     {
-      "filter": "(datum['Year'] % 2 === 0) && datum['Country Code'] === ''"
+      "filter": "datum['Country Code'] === ''"
     }
   ],
   "encoding": {

@@ -4,13 +4,12 @@
   "width": 1000,
   "height": 600,
   "data": {
-    "url": "https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/renewable_long_format.csv"
+    "url": "renewable_long_format.csv"
   },
   "params": [    
     {
       "name": "selectedCountry",
-      "value": "",
-      "bind": {"input": "hidden"}
+      "value": ""
     },
     {
       "name": "Year",
@@ -29,8 +28,14 @@
   },
   "layer": [
     {
+      "mark":{
+        "type": "rect",
+        "fill":"lightblue"
+      }
+    },
+    {
       "data": {
-        "url": "https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/ne_110m(1).json",
+        "url": "ne_110m.json",
         "format": {
           "type": "topojson",
           "feature": "ne_110m_admin_0_countries"
@@ -71,7 +76,7 @@
           "lookup": "Country Code",
           "from": {
             "data": {
-              "url": "https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/ne_110m(1).json",
+              "url": "ne_110m(1).json",
               "format": {
                 "type": "topojson",
                 "feature": "ne_110m_admin_0_countries"
@@ -104,7 +109,7 @@
           "type": "quantitative",
           "title": "Renewable Electricity (%) excl. hydroelectric",
           "scale": {
-            "range": ["#003366", "#005577", "#007788", "#009999", "#33aa88", "#66cc77", "#99ee66"],
+            "range": ["#99ee66", "#66cc77", "#33aa88", "#009999", "#007788", "#005577", "#003366"],
             "domain":[0,50]
           }
         },

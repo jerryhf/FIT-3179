@@ -5,7 +5,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
-  <link rel="stylesheet" type="text/css" href="./assignment02/styles.css">
+  <link rel="stylesheet" type="text/css" href="styles.css"">
 
 </head>
 <body>
@@ -14,7 +14,7 @@
     <h1 class="content">Renewable Energy</h1>
     
     <h2 class="content">Global View of Renewable Energy</h2>
-    <p class="content">Global electricity production from renewable sources is a growing concern in the pursuit of sustainability. This map displays the percentage of electricity generated from renewable sources, specifically excluding hydroelectric energy. The reason for this exclusion is to focus on the overall contributions of renewable energy in a country's electricity generation without the often dominant influence of hydroelectric power. Click a country to show data</p>
+    <p class="content">Global electricity production from renewable sources is a growing concern in the pursuit of sustainability. This map displays the percentage of electricity generated from renewable sources, specifically excluding hydroelectric energy. The reason for this exclusion is to focus on the overall contributions of renewable energy in a country's electricity generation without the often dominant influence of hydroelectric power.</p>
     <div id="choropleth_map"></div>
     
     <h2 class="content">Country-Specific Trends</h2>
@@ -36,10 +36,10 @@
   let selectedCountry = "";
   let choroplethView;
   let selectedYear = 2015;
-  d3.csv("https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/renewable_long_format.csv").then(data => {
+  d3.csv("renewable_long_format.csv").then(data => {
     uniqueCountries = [...new Set(data.map(item => item["Country Code"]))];
 
-    fetch("https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/visualization.json")
+    fetch("./assignment02/visualization.json")
     .then(response=>response.json())
     .then(spec=>{
       vegaEmbed('#choropleth_map', spec)
@@ -59,21 +59,21 @@
     })
   })
   .then(() => { 
-      fetch("https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/line_chart.json")
+      fetch("./assignment02/line_chart.json")
       .then(response => response.json()) 
       .then(line_chart => {
         vegaEmbed("#line_chart", line_chart).catch(console.error);
       });
     })
     .then(() =>{
-      fetch("https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/stacked_area_chart.json") 
+      fetch("./assignment02/stacked_area_chart.json") 
       .then(response => response.json())
       .then(stacked_area_chart => {
       vegaEmbed("#stacked_area_chart", stacked_area_chart).catch(console.error);
     });
     })
     .then(() =>{
-      fetch("https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/bar_chart.json")
+      fetch("./assignment02/bar_chart.json")
       .then(response => response.json())
       .then(bar_chart => {
         vegaEmbed("#bar_chart", bar_chart).catch(console.error)
@@ -88,17 +88,16 @@
   }
 
     function updateLineChart(){
-      fetch("https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/line_chart.json")
+      fetch("./assignment02/line_chart.json")
       .then(response => response.json())
       .then(line_chart =>{
-        // line_chart.params[0].value = selectedCountry;
         line_chart.transform[0].filter = `datum['Country Code'] === "${selectedCountry}"`;
         vegaEmbed("#line_chart", line_chart).catch(console.error)
       })
     }
 
     function updateAreaChart(){
-      fetch("https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/stacked_area_chart.json")
+      fetch("./assignment02/stacked_area_chart.json")
       .then(response => response.json())
       .then(stacked_area_chart =>{
         stacked_area_chart.transform[0].filter = `datum['Country Code'] === "${selectedCountry}"`;
@@ -107,13 +106,19 @@
     }
 
     function updateBarChart(){
-    fetch("https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/bar_chart.json")
-    .then(response => response.json())
-    .then(bar_chart =>{
-      bar_chart.transform[0].filter = `datum['Country Code'] === "${selectedCountry}"`;
-      vegaEmbed("#bar_chart", bar_chart).catch(console.error);
-        })
-      }
+  fetch("./assignment02/bar_chart.json")
+  .then(response => response.json())
+  .then(bar_chart => {
+    // Create a new filter that combines both the year and country conditions
+    const combinedFilter = `(datum['Year'] % 2 === 0) && (datum['Country Code'] === "${selectedCountry}")`;
+    
+    // Update the transform filter
+    bar_chart.transform[0].filter = combinedFilter;
+
+    // Embed the updated chart
+    vegaEmbed("#bar_chart", bar_chart).catch(console.error);
+  })
+}
 
 
 </script>

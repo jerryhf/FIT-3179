@@ -3,14 +3,14 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #daffb3;
+    background-color: #f1ffb3;
 }
 
 #chart-container {
     max-width: 1200px;
     margin: auto;
     padding: 20px;
-    background-color: #9ee8ff;
+    background-color: #b7ecfc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -43,7 +43,7 @@ p.content {
 #bar_chart {
     margin: 20px 0;
     padding: 20px;
-    background-color: #bbff8a;
+    background-color: #d3ffb4;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);

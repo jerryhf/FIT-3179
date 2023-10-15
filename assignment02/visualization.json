@@ -35,7 +35,7 @@
     },
     {
       "data": {
-        "url": "ne_110m.json",
+        "url": "./ne_110m.json",
         "format": {
           "type": "topojson",
           "feature": "ne_110m_admin_0_countries"
@@ -76,7 +76,7 @@
           "lookup": "Country Code",
           "from": {
             "data": {
-              "url": "ne_110m(1).json",
+              "url": "./ne_110m(1).json",
               "format": {
                 "type": "topojson",
                 "feature": "ne_110m_admin_0_countries"

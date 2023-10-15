@@ -39,7 +39,7 @@
   d3.csv("https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/renewable_long_format.csv").then(data => {
     uniqueCountries = [...new Set(data.map(item => item["Country Code"]))];
 
-    fetch("./assignment02/visualization.json")
+    fetch("https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/visualization.json")
     .then(response=>response.json())
     .then(spec=>{
       vegaEmbed('#choropleth_map', spec)
@@ -59,21 +59,21 @@
     })
   })
   .then(() => { 
-      fetch("./assignment02/line_chart.json")
+      fetch("https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/line_chart.json")
       .then(response => response.json()) 
       .then(line_chart => {
         vegaEmbed("#line_chart", line_chart).catch(console.error);
       });
     })
     .then(() =>{
-      fetch("./assignment02/stacked_area_chart.json") 
+      fetch("https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/stacked_area_chart.json") 
       .then(response => response.json())
       .then(stacked_area_chart => {
       vegaEmbed("#stacked_area_chart", stacked_area_chart).catch(console.error);
     });
     })
     .then(() =>{
-      fetch("./assignment02/bar_chart.json")
+      fetch("https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/bar_chart.json")
       .then(response => response.json())
       .then(bar_chart => {
         vegaEmbed("#bar_chart", bar_chart).catch(console.error)
@@ -88,7 +88,7 @@
   }
 
     function updateLineChart(){
-      fetch("./assignment02/line_chart.json")
+      fetch("https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/line_chart.json")
       .then(response => response.json())
       .then(line_chart =>{
         line_chart.transform[0].filter = `datum['Country Code'] === "${selectedCountry}"`;
@@ -97,7 +97,7 @@
     }
 
     function updateAreaChart(){
-      fetch("./assignment02/stacked_area_chart.json")
+      fetch("https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/stacked_area_chart.json")
       .then(response => response.json())
       .then(stacked_area_chart =>{
         stacked_area_chart.transform[0].filter = `datum['Country Code'] === "${selectedCountry}"`;
@@ -106,7 +106,7 @@
     }
 
     function updateBarChart(){
-  fetch("./assignment02/bar_chart.json")
+  fetch("https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/bar_chart.json")
   .then(response => response.json())
   .then(bar_chart => {
     // Create a new filter that combines both the year and country conditions

@@ -10,7 +10,7 @@ body {
     max-width: 1200px;
     margin: auto;
     padding: 20px;
-    background-color: #e8f5f9;
+    background-color: #7edcf8;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -43,7 +43,7 @@ p.content {
 #bar_chart {
     margin: 20px 0;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #a5ff64;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);

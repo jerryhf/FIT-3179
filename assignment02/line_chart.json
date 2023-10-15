@@ -4,7 +4,7 @@
     "width": 500,
     "height": 300,
     "data": {
-      "url": "./renewable_long_format"
+      "url": "https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/renewable_long_format.csv"
     },
     "transform": [
       {

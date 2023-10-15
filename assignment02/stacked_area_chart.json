@@ -4,7 +4,7 @@
     "width": 500,
     "height": 300,
     "data": {
-      "url": "./filtered_stacked_renewable_data.csv"
+      "url": "https://raw.githubusercontent.com/jerryhf/FIT-3179/main/assignment02/filtered_stacked_renewable_data.csv"
     },
     "transform": [
       {
